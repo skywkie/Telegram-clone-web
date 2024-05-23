@@ -1,0 +1,16 @@
+.register__btn {
+  max-width: 360px;
+  width: 100%;
+  padding: 0px 20px;
+  height: 55px;
+  background-color: transparent;
+  color: rgb(135, 116, 225);
+  border-radius: 15px;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+  font-size: 1.2rem;
+  transition: 0.3s;
+  &:hover {
+    background-color: rgba(135, 116, 225, 0.1);
+  }
+}

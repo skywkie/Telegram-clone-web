@@ -1,0 +1,28 @@
+@import url(./_fonts.scss);
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Reddit Sans", sans-serif;
+  outline: none;
+  border: none;
+}
+
+html[data-theme="dark"] {
+  --wrapper-background-color: rgb(33, 33, 33);
+  --inner-background-color: #fff;
+  --inner__container-background-color: #fff;
+  --main-text-color: #fff;
+
+  $wrapper-background-color: var(--wrapper-background-color	);
+}
+
+html[data-theme="light"] {
+  --wrapper-background-color: rgb(33, 33, 33);
+  --inner-background-color: #fff;
+  --inner__container-background-color: #fff;
+  --main-text-color: #000;
+
+  $wrapper-background-color: var(--wrapper-background-color);
+}
