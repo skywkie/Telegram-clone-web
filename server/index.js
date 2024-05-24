@@ -15,6 +15,7 @@ app.post("/api/auth/register", async (req, res) => {
     const userName = req.body.userName;
     const password = req.body.password;
 
+    const id = Date.now();
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
@@ -22,7 +23,7 @@ app.post("/api/auth/register", async (req, res) => {
       expiresIn: "30d",
     });
 
-    res.status(201).json({ userName, passwordHash, token });
+    res.status(201).json({ userName, id, token });
   } catch (err) {
     res.status(500).json({
       message: "Не удалось зарегистрироваться",

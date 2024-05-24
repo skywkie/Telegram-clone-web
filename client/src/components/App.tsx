@@ -9,17 +9,20 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 //Здесь необходим функционал, авторизован ли пользователь, если да то ...
+
 function App() {
+  // const navigate = useNavigate();
+
   return (
     <div className="wrapper">
       <div className="inner">
         <div className="inner__container">
           <ThemeProvider>
             <Routes>
-              <Route path="/" element={<Register />} />
+              <Route path="/" element={<Home />} />
               <Route path="/auth/register" element={<Register />} />
               <Route path="/auth/login" element={<Login />} />
-              <Route path="/home" element={<Home />} />
+              {/* <Route path="/home" element={<Home />} /> */}
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </ThemeProvider>
