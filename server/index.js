@@ -10,12 +10,19 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/api/auth/register", (req, res) => {
+app.post("/api/auth/register", async (req, res) => {
   try {
-    const name = req.body.userName;
+    const userName = req.body.userName;
     const password = req.body.password;
 
-    res.status(201).json({ name, password });
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const token = jwt.sign({ id: Date.now() }, "secret", {
+      expiresIn: "30d",
+    });
+
+    res.status(201).json({ userName, passwordHash, token });
   } catch (err) {
     res.status(500).json({
       message: "Не удалось зарегистрироваться",
