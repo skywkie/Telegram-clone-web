@@ -1,12 +1,13 @@
-const express = require("express");
-const http = require("http");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const ws = require("ws");
+import express from "express";
+import http from "http";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const PORT = 5000;
 
 const app = express();
+
+const db = { users: [] };
 
 app.use(express.json());
 
@@ -23,7 +24,17 @@ app.post("/api/auth/register", async (req, res) => {
       expiresIn: "30d",
     });
 
-    res.status(201).json({ userName, id, token });
+    const userModel = { userName, passwordHash, token };
+
+    const finded = db.users.find((user) => user.userName === userModel.userName);
+    console.log(finded, !finded);
+
+    if (db.users.find((user) => user.userName === userModel.userName)) {
+      res.status(500).json({ ...userModel, error: "Такой пользователь уже есть" });
+    } else {
+      db.users.push(userModel);
+      res.status(201).json(userModel);
+    }
   } catch (err) {
     res.status(500).json({
       message: "Не удалось зарегистрироваться",
@@ -36,9 +47,3 @@ const httpServer = http.createServer(app);
 httpServer.listen(PORT, () => {
   console.log("@http server listen at port", PORT);
 });
-
-// const wsServer = new ws.WebSocketServer({ httpServer });
-
-// wsServer.on("connection", (ws) => {
-//   ws.send("<span>Web wocket connection</span>");
-// });

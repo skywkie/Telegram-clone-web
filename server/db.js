@@ -1,12 +1,27 @@
-const { Low, JSONFile, dirname, fileURLToPath, join } = require("lowdb");
+import { addRxPlugin, createRxDatabase } from "rxdb";
+import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 
-// путь к текущей директории
-const _dirname = dirname(fileURLToPath(import.meta.url));
+import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
 
-// путь к файлу с фиктивными данными
-const file = join(_dirname, "data.json");
+addRxPlugin(RxDBDevModePlugin);
 
-const adapter = new JSONFile(file);
-const db = new Low(adapter);
+const db = await createRxDatabase({
+  name: "users",
+  storage: getRxStorageDexie({
+    clusterFile: "",
+  }),
+});
 
-export default db;
+await db.addCollections({
+  users: {
+    schema: mySchema,
+  },
+});
+
+const result = await db.users
+  .find({
+    selector: {
+      name: "foobar",
+    },
+  })
+  .exec();

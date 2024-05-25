@@ -45,7 +45,7 @@ function Register() {
     await axios
       .post("/api/auth/register", data)
       .then((response) => {
-        console.log("Data is sent");
+        console.log("Data is sent", response.data);
         dispatch(
           setUser({
             userName: response.data.userName,
