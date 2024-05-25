@@ -1,7 +1,7 @@
 import React from "react";
 import useTheme from "../hooks/useTheme";
 
-export const ThemeContext = React.createContext(null);
+export const ThemeContext = React.createContext<any>(null);
 
 const ThemeProvider = ({ children }) => {
   const { theme, setTheme } = useTheme();

@@ -5,6 +5,7 @@ import axios from "axios";
 import { setUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/useAppDispatch";
+import { AuthContext } from "../context/AuthContext,";
 
 interface IUserData {
   userName: string;
@@ -24,6 +25,8 @@ function Register() {
   const [userNameError, setUserNameError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
   const [rep_passwordError, setRep_PasswordError] = React.useState("");
+
+  const { isAuth, setIsAuth } = React.useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -50,7 +53,8 @@ function Register() {
             token: response.data.token,
           })
         );
-        navigate("/auth/login");
+        setIsAuth(true);
+        navigate("/");
       })
       .catch((err) => console.error(err));
   }
