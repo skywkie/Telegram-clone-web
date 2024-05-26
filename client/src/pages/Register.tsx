@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Register.module.scss";
+import "../styles/Register.scss";
 import Button from "../components/Buttons/Button";
 import axios from "axios";
 import { setUser } from "../redux/userSlice";
@@ -10,11 +10,6 @@ import { AuthContext } from "../context/AuthContext,";
 interface IUserData {
   userName: string;
   password: string;
-}
-interface IResponseData {
-  userName: string;
-  passwordHash: string;
-  token: string;
 }
 
 function Register() {
@@ -41,9 +36,9 @@ function Register() {
     }
   }
 
-  async function sendUserData(data: IUserData) {
+  async function sendUserData(userData: IUserData) {
     await axios
-      .post("/api/auth/register", data)
+      .post("/api/auth/register", userData)
       .then((response) => {
         console.log("Data is sent", response.data);
         dispatch(
@@ -63,25 +58,29 @@ function Register() {
     const EMAIL_REGEXP =
       /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
-    if (EMAIL_REGEXP.test(userName) && rep_password === password) {
+    if (EMAIL_REGEXP.test(userName) && rep_password === password && password.length > 7) {
       console.log("username and password ok");
       setUserNameError("");
       setPasswordError("");
       setRep_PasswordError("");
       return true;
-    } else if (!(userName.length > 3)) {
+    }
+    if (!(userName.length > 3)) {
       console.log("username not ok");
       setUserNameError("Error! (UserName)");
       return false;
-    } else if (!EMAIL_REGEXP.test(userName)) {
+    }
+    if (!EMAIL_REGEXP.test(userName)) {
       console.log("username not ok");
       setUserNameError("Error! (UserName)");
       return false;
-    } else if (!(password.length > 7)) {
+    }
+    if (!(password.length > 7)) {
       console.log("password not ok");
       setPasswordError("Error! (Password)");
       return false;
-    } else if (!(password === rep_password)) {
+    }
+    if (!(password === rep_password)) {
       console.log("rep_password not ok");
       setRep_PasswordError("Error! (Rep_Password)");
       return false;
@@ -89,36 +88,36 @@ function Register() {
   }
 
   return (
-    <div className={styles.register}>
-      <h2 className={styles.register__title}>Sign up</h2>
-      <form onSubmit={onSubmit} className={styles.register__form}>
+    <div className="register">
+      <h2 className="register__title">Sign up</h2>
+      <form onSubmit={onSubmit} className="register__form">
         <input
           onChange={(e) => setUserName(e.target.value)}
           value={userName}
-          className={styles.register__input}
+          className="register__input"
           type="text"
           placeholder="Your login"
           name="username"
         />
-        <span className={styles.register__errorLogin}>{userNameError}</span>
+        <span className="register__errorLogin">{userNameError}</span>
         <input
           onChange={(e) => setPassword(e.target.value)}
           value={password}
-          className={styles.register__input}
+          className="register__input"
           type="password"
           placeholder="Your password"
           name="password"
         />
-        <span className={styles.register__error}>{passwordError}</span>
+        <span className="register__errorPassword">{passwordError}</span>
         <input
           onChange={(e) => setRep_Password(e.target.value)}
           value={rep_password}
-          className={styles.register__input}
+          className="register__input"
           type="password"
           placeholder="Your password"
           name="password"
         />
-        <span className={styles.register__errorRepPassword}>{rep_passwordError}</span>
+        <span className="register__errorRepPassword">{rep_passwordError}</span>
         <Button type="auth" label="Register" onClick={() => {}} />
       </form>
     </div>

@@ -1,5 +1,4 @@
-import React from "react";
-import RegisterButton from "./RegisterButton";
+import RegisterButton from "./AuthButton";
 
 interface IButton {
   label: string;

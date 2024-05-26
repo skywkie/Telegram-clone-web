@@ -1,4 +1,4 @@
-import styles from "./RegisterButton.module.scss"
+import styles from "./AuthButton.module.scss"
 
 interface IRegisterButon {
   label: string;

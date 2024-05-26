@@ -1,6 +1,6 @@
 @import "./variables";
 
-.register {
+.login {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -39,16 +39,9 @@
     left: 5px;
     color: red;
   }
-  &__error {
+  &__errorPassword {
     position: absolute;
     top: 190px;
-    font-size: 14px;
-    left: 5px;
-    color: red;
-  }
-  &__errorRepPassword {
-    position: absolute;
-    top: 264px;
     font-size: 14px;
     left: 5px;
     color: red;

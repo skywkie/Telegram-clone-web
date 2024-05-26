@@ -1,6 +1,6 @@
 import "../styles/App.scss";
 
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home";
 import ErrorPage from "../pages/ErrorPage";
@@ -12,6 +12,8 @@ function App() {
     <div className="wrapper">
       <div className="inner">
         <div className="inner__container">
+          <Link to="/auth/login">to Login</Link><br />
+          <Link to="/auth/register">to Register</Link>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth/register" element={<Register />} />
