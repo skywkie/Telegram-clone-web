@@ -2,6 +2,10 @@ import React from "react";
 import Button from "../components/Buttons/Button";
 import "../styles/Login.scss";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/useAppDispatch";
+import { setUser } from "../redux/userSlice";
+import { AuthContext } from "../context/AuthContext,";
 
 interface IUserData {
   userName: string;
@@ -15,6 +19,12 @@ function Login() {
   const [userNameError, setUserNameError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
 
+  const { isAuth, setIsAuth } = React.useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -24,10 +34,19 @@ function Login() {
     }
   }
 
-  function sendUserData(userData) {
-		axios.post("/auth/login", userData).then((response) => {
-			
-		});
+  async function sendUserData(userData: IUserData) {
+    await axios.post("/api/auth/login", userData).then((response) => {
+      console.log("Data is sent", response.data);
+      dispatch(
+        setUser({
+          userName: response.data.userName,
+          id: response.data.id,
+          token: response.data.token,
+        })
+      );
+      setIsAuth(true);
+      navigate("/");
+    });
   }
 
   function validate() {
