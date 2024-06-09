@@ -1,68 +1,85 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const db = { users: [] };
+import {
+  createNewUser_SQLRequest,
+  getHashPasswordAndSalt_SQLRequest,
+  getUserInfo_SQLRequest,
+} from "../database";
+
+import dotenv from "dotenv";
+dotenv.config();
+
+const SECRET = process.env.SECRET;
 
 export async function register(req, res) {
+  const userName = req.body.userName;
+  const password = req.body.password;
+
+  const userId = Math.floor(Date.now() / 1000);
+
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+
   try {
-    const userName = req.body.userName;
-    const password = req.body.password;
+    result = await createNewUser_SQLRequest(userId, userName, hashPassword, salt);
 
-    const id = Date.now();
+    // TODO: Провекра результата запроса к бд
 
-    const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
-
-    const token = jwt.sign({ id: Date.now() }, "secret", {
+    const token = jwt.sign({ userId }, SECRET, {
       expiresIn: "30d",
     });
 
-    const userModel = { userName, id, token };
-
-    const isFound = db.users.find((user) => user.userName === userModel.userName);
-
-    if (isFound) {
-      res.status(500).json({ ...userModel, error: "Такой пользователь уже есть" });
-    } else {
-      db.users.push(userModel);
-      res.status(201).json(userModel);
-    }
+    res.status(200).send({ token });
   } catch (err) {
-    res.status(500).json({
-      message: "Не удалось зарегистрироваться",
+    res.status(400).send({
+      message: "@Register ERROR",
     });
   }
 }
 
 export async function login(req, res) {
+  const userName = req.body.userName;
+  const password = req.body.password;
+
   try {
-    const userName = req.body.userName;
-    const password = req.body.password;
+    const result = await getHashPasswordAndSalt_SQLRequest(userName);
 
-    const token = jwt.sign({ id: Date.now() }, "secret", {
-      expiresIn: "30d",
-    });
+    const salt = result.salt;
+    const userId = result.id;
 
-    const id = Date.now();
+    const hashedPasswordFromUser = bcrypt.compare(password, salt);
 
-    const userModel = { userName, id, token };
+    const hashPasswordFromDatabase = result.hashPassword;
 
-    function findUser() {
-      const isFound = db.users.find((user) => user.userName === userName);
-      const isMatchPasswords = db.users.find((user) => user.password === password);
-      console.log(isMatchPasswords);
-      if (isFound) return true;
-      else return false;
+    if (hashPasswordFromDatabase === hashedPasswordFromUser) {
+      const token = jwt.sign({ userId });
+
+      const userData = await getUserInfo_SQLRequest(userId);
+
+      res.status(200).send({ token, userName: userData.userName });
+    } else {
+      throw Error;
     }
-
-    if (findUser()) res.status(201).json(userModel);
-    else
-      res.status(400).json({
-        message: "Не удалось войти совсем",
-      });
   } catch (err) {
-    res.status(500).json({
-      message: "Не удалось войти",
+    res.status(500).send({
+      message: "@Login ERROR",
+    });
+  }
+}
+
+export async function loginByToken(req, res) {
+  const token = req.body.token;
+
+  try {
+    const userId = jwt.verify(token, SECRET).userId;
+
+    const userData = await getUserInfo_SQLRequest(userId);
+
+    res.status(200).send({ token, userName: userData.userName });
+  } catch (err) {
+    res.status(400).send({
+      message: "@Login by token ERROR",
     });
   }
 }
