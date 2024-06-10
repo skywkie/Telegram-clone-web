@@ -2,9 +2,11 @@ import express from "express";
 import http from "http";
 
 import dotenv from "dotenv";
-dotenv.config();
 
-import { login, loginByToken, register } from "./service/index.js";
+import { register, login, loginByToken } from "./service/databaseFunctions.js";
+console.log(login);
+
+dotenv.config();
 
 const PORT = process.env.PORT;
 

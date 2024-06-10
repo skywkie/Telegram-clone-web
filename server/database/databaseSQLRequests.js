@@ -12,17 +12,16 @@ const pool = mysql
   })
   .promise();
 
-export async function createNewUserSQLRequest(id, userName, hashPassword, salt) {
+export async function createNewUser_SQLRequest(userId, userName, hashPassword, salt) {
   // TODO: Обработчик ошибок
   const [result] = await pool.query(
     `
-			INSERT INTO users (id, userName, hashPassword, salt)
-			VALUES (?, ?, ?, ?)
+			INSERT INTO users (userId, userName, hashPassword, salt) VALUES (?, ?, ?, ?);
 		`,
-    [id, userName, hashPassword, salt]
+    [userId, userName, hashPassword, salt]
   );
   return {
-    id,
+    userId,
     userName,
     hashPassword,
     salt,
@@ -33,30 +32,25 @@ export async function getHashPasswordAndSalt_SQLRequest(userName) {
   // TODO: Обработчик ошибок
   const [result] = await pool.query(
     `
-			SELECT id, userName, hashPassword, salt FROM users
-			WHERE userName = ?
+			SELECT userId, userName, hashPassword, salt FROM users WHERE userName = ?;
 		`,
     [userName]
   );
   return {
-    id: result.id,
+    userId: result.userId,
     userName,
     hashPassword: result.hashPassword,
     salt: result.salt,
   };
 }
 
-export async function getUserInfo_SQLRequest(id) {
+export async function getUserInfo_SQLRequest(userId) {
   // TODO: Обработчик ошибок
   const [result] = await pool.query(
     `
-			SELECT userName FROM users
-			WHERE id = ?
+			SELECT userName FROM users WHERE id = ?;
 		`,
-    [id]
+    [userId]
   );
-  return {
-    id,
-    userName: result.userName,
-  };
+  return { userName: result.userName, userId };
 }

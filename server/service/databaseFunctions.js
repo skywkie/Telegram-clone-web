@@ -5,7 +5,7 @@ import {
   createNewUser_SQLRequest,
   getHashPasswordAndSalt_SQLRequest,
   getUserInfo_SQLRequest,
-} from "../database";
+} from "../database/databaseSQLRequests.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,15 +22,14 @@ export async function register(req, res) {
   const hashPassword = await bcrypt.hash(password, salt);
 
   try {
-    result = await createNewUser_SQLRequest(userId, userName, hashPassword, salt);
+    const result = await createNewUser_SQLRequest(userId, userName, hashPassword, salt);
 
     // TODO: Провекра результата запроса к бд
 
     const token = jwt.sign({ userId }, SECRET, {
       expiresIn: "30d",
     });
-
-    res.status(200).send({ token });
+    res.status(200).send({ token, userId });
   } catch (err) {
     res.status(400).send({
       message: "@Register ERROR",
@@ -44,12 +43,10 @@ export async function login(req, res) {
 
   try {
     const result = await getHashPasswordAndSalt_SQLRequest(userName);
-
-    const salt = result.salt;
     const userId = result.id;
+    const salt = result.salt;
 
     const hashedPasswordFromUser = bcrypt.compare(password, salt);
-
     const hashPasswordFromDatabase = result.hashPassword;
 
     if (hashPasswordFromDatabase === hashedPasswordFromUser) {
@@ -57,7 +54,7 @@ export async function login(req, res) {
 
       const userData = await getUserInfo_SQLRequest(userId);
 
-      res.status(200).send({ token, userName: userData.userName });
+      res.status(200).send({ token, userId });
     } else {
       throw Error;
     }
@@ -76,7 +73,7 @@ export async function loginByToken(req, res) {
 
     const userData = await getUserInfo_SQLRequest(userId);
 
-    res.status(200).send({ token, userName: userData.userName });
+    res.status(200).send({ userName: userData.userName, token, userId });
   } catch (err) {
     res.status(400).send({
       message: "@Login by token ERROR",
