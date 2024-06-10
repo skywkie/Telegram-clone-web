@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type initialStateType = {
+interface initialState {
   userName: string | null;
   token: number | null;
-  id: number | null;
-};
+  userId: number | null;
+}
 
-const initialState: initialStateType = { userName: null, token: null, id: null };
+const initialState: initialState = { userName: null, token: null, userId: null };
 
 export const userSlice = createSlice({
   name: "user",
@@ -15,13 +15,13 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.userName = action.payload.userName;
       state.token = action.payload.token;
-      state.id = action.payload.id;
+      state.userId = action.payload.userId;
     },
     // updateUser: () => {},
     removeUser: (state) => {
       state.userName = null;
       state.token = null;
-      state.id = null;
+      state.userId = null;
     },
   },
 });

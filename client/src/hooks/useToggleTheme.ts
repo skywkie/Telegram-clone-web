@@ -4,7 +4,12 @@ import React from "react";
 const isLight = window?.matchMedia("(prefers-color-scheme: light)").matches;
 const userDefaultTheme = isLight ? "light" : "dark";
 
-export default function useTheme() {
+interface ThemeState {
+  theme: "dark" | "light";
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function useToggleTheme() {
   const [theme, setTheme] = React.useState(
     localStorage.getItem("data-theme") || userDefaultTheme
   );
@@ -14,5 +19,5 @@ export default function useTheme() {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  return { theme, setTheme };
+  return { theme, setTheme } as ThemeState;
 }

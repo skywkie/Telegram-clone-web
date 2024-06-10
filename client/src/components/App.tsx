@@ -1,26 +1,39 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { getRoutes } from "../routes";
+
 import "../styles/App.scss";
 
-import { Link, Route, Routes } from "react-router-dom";
+import { AuthContext, AuthContextValues } from "../context/AuthContext,";
 
-import Home from "../pages/Home";
-import ErrorPage from "../pages/ErrorPage";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import { useAppDispatch } from "../hooks";
+import { fetchLoginByToken } from "../redux/authenticationSlice";
 
 function App() {
+  const { isAuth, setIsAuth } = React.useContext(AuthContext) as AuthContextValues;
+
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      // LoginPage
+      console.log("Token in localStorage has not found");
+    } else {
+      dispatch(fetchLoginByToken(accessToken));
+      setIsAuth(true);
+    }
+  }, []);
+
   return (
     <div className="wrapper">
       <div className="inner">
         <div className="inner__container">
-          <Link to="/auth/login">to Login</Link><br />
+          <Link to="/auth/login">to Login</Link>
+          <br />
           <Link to="/auth/register">to Register</Link>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="/auth/login" element={<Login />} />
-            {/* <Route path="/home" element={<Home />} /> */}
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
+          {getRoutes(isAuth)}
         </div>
       </div>
     </div>

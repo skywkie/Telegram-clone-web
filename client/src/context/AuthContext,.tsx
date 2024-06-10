@@ -1,9 +1,18 @@
 import React from "react";
 
-export const AuthContext = React.createContext<any>(null);
+export interface AuthContextValues {
+  isAuth: boolean;
+  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = React.useState(false);
+export const AuthContext = React.createContext<AuthContextValues | null>(null);
+
+interface AuthProviderChildren {
+  children: React.ReactNode;
+}
+
+const AuthProvider: React.FC<AuthProviderChildren> = ({ children }) => {
+  const [isAuth, setIsAuth] = React.useState<boolean>(false);
 
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>{children}</AuthContext.Provider>

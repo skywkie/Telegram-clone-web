@@ -1,10 +1,19 @@
 import React from "react";
-import useTheme from "../hooks/useTheme";
+import { useToggleTheme } from "../hooks";
 
-export const ThemeContext = React.createContext<any>(null);
+interface ThemeContext {
+  theme: "dark" | "light";
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const ThemeProvider = ({ children }) => {
-  const { theme, setTheme } = useTheme();
+export const ThemeContext = React.createContext<ThemeContext | null>(null);
+
+interface ThemeProviderChildren {
+  children: React.ReactNode;
+}
+
+const ThemeProvider: React.FC<ThemeProviderChildren> = ({ children }) => {
+  const { theme, setTheme } = useToggleTheme();
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
