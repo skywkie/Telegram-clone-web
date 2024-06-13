@@ -3,7 +3,7 @@ import http from "http";
 
 import dotenv from "dotenv";
 
-import { register, login, loginByToken } from "./service/databaseFunctions.js";
+import { register, login } from "./service/databaseFunctions.js";
 console.log(login);
 
 dotenv.config();
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.post("/api/auth/register", register);
 app.post("/api/auth/login", login);
-app.post("/api/auth/loginByToken", loginByToken);
+// app.post("/api/auth/loginByToken", loginByToken);
 
 const httpServer = http.createServer(app);
 
