@@ -12,18 +12,16 @@ const pool = mysql
   })
   .promise();
 
-export async function createNewUser_SQLRequest(userId, email, userName, password) {
+export async function createNewUserWithEmail_SQLRequest(userId, email, password) {
   // TODO: Обработчик ошибок
   const [result] = await pool.query(
-    `
-			INSERT INTO users (userId, email, userName, password) VALUES (?, ?, ?, ?);
-		`,
-    [userId, email, userName, password]
+    `INSERT INTO users (userId, email, userName, password) VALUES (?, ?, "", ?);`,
+    [userId, email, password]
   );
+  console.log(result);
   return {
     userId,
     email,
-    userName,
     password,
   };
 }

@@ -1,5 +1,5 @@
 import {
-  createNewUser_SQLRequest,
+  createNewUserWithEmail_SQLRequest,
   getPasswordByEmail_SQLRequest,
 } from "../database/databaseSQLRequests.js";
 
@@ -15,7 +15,7 @@ export async function register(req, res) {
   const userId = Math.floor(Date.now() / 1000);
 
   try {
-    // await createNewUser_SQLRequest(userId, email, password);
+    await createNewUserWithEmail_SQLRequest(userId, email, password);
 
     // TODO: Провекра результата запроса к бд
 
