@@ -2,7 +2,6 @@ import React from "react";
 import Button from "../components/Buttons/Button";
 import "../styles/Login.scss";
 import { useAppDispatch } from "../hooks";
-import { fetchLogin } from "../redux/authenticationSlice";
 
 function Login() {
   const [userName, setUserName] = React.useState("root");
@@ -18,8 +17,6 @@ function Login() {
 
   function onClick() {
     const userData = { userName, password };
-
-    dispatch(fetchLogin(userData));
   }
 
   return (
