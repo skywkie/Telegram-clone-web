@@ -26,17 +26,19 @@ export async function createNewUserWithEmail_SQLRequest(userId, email, password)
   };
 }
 
-export async function getPasswordByEmail_SQLRequest(email) {
+export async function getPasswordAndUserIdByEmail_SQLRequest(email) {
   // TODO: Обработчик ошибок
   const [result] = await pool.query(
     `
-			SELECT password FROM users WHERE email = ?;
+			SELECT password, userId FROM users WHERE email = ?;
 		`,
     [email]
   );
   const passwordFromDatabaseObj = result[0].password;
+  const userId = result[0].userId;
+  console.log(userId);
   return {
-    email,
+    userId,
     password: passwordFromDatabaseObj,
   };
 }

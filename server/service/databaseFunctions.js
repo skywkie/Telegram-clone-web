@@ -1,6 +1,6 @@
 import {
   createNewUserWithEmail_SQLRequest,
-  getPasswordByEmail_SQLRequest,
+  getPasswordAndUserIdByEmail_SQLRequest,
 } from "../database/databaseSQLRequests.js";
 
 import dotenv from "dotenv";
@@ -32,7 +32,7 @@ export async function login(req, res) {
   const password = req.body.password;
 
   try {
-    const result = await getPasswordByEmail_SQLRequest(email);
+    const result = await getPasswordAndUserIdByEmail_SQLRequest(email);
 
     const userId = result.userId;
 

@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../components/Buttons/Button";
 import "../styles/Register.scss";
 
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch } from "../hooks";
 import { fetchRegistrationWithEmail } from "../redux/authSlice";
 
 function Register() {
@@ -12,8 +12,6 @@ function Register() {
   const [rep_password, setRep_Password] = React.useState("12345678");
 
   const dispatch = useAppDispatch();
-  const userObject = useAppSelector((state) => state.userSlice);
-  console.log(userObject);
 
   // TODO: Сделать обработчик ошибок для каждого поля с помощью хука useDebounce
 

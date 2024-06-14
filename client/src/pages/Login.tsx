@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../components/Buttons/Button";
 import "../styles/Login.scss";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch } from "../hooks";
 import { fetchLoginWithEmail } from "../redux/authSlice";
 
 function Login() {
@@ -9,10 +9,6 @@ function Login() {
   const [password, setPassword] = React.useState("12345678");
 
   const dispatch = useAppDispatch();
-
-  const userObject = useAppSelector((state) => state.userSlice);
-  const isAuth = useAppSelector((state) => state.authSlice);
-  console.log(userObject, isAuth);
 
   // TODO: Сделать обработчик ошибок для каждого поля с помощью хука useDebounce
 
