@@ -11,7 +11,8 @@ function Login() {
   const dispatch = useAppDispatch();
 
   const userObject = useAppSelector((state) => state.userSlice);
-  console.log(userObject);
+  const isAuth = useAppSelector((state) => state.authSlice);
+  console.log(userObject, isAuth);
 
   // TODO: Сделать обработчик ошибок для каждого поля с помощью хука useDebounce
 
