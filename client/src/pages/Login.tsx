@@ -1,13 +1,18 @@
 import React from "react";
 import Button from "../components/Buttons/Button";
 import "../styles/Login.scss";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { fetchLoginWithEmail } from "../redux/authSlice";
 
 function Login() {
-  const [userName, setUserName] = React.useState("root");
-  const [password, setPassword] = React.useState("7819345609");
+  const [email, setEmail] = React.useState("test123@gmail.com");
+  const [password, setPassword] = React.useState("12345678");
 
   const dispatch = useAppDispatch();
+
+  const userObject = useAppSelector((state) => state.userSlice);
+  const isAuth = useAppSelector((state) => state.authSlice);
+  console.log(userObject, isAuth);
 
   // TODO: Сделать обработчик ошибок для каждого поля с помощью хука useDebounce
 
@@ -15,8 +20,10 @@ function Login() {
     e.preventDefault();
   }
 
-  function onClick() {
-    const userData = { userName, password };
+  async function onClick() {
+    const userData = { email, password };
+
+    await dispatch(fetchLoginWithEmail(userData)); // TODO
   }
 
   return (
@@ -24,12 +31,12 @@ function Login() {
       <h2 className="login__title">Sign in</h2>
       <form onSubmit={onSubmit} className="login__form">
         <input
-          onChange={(e) => setUserName(e.target.value)}
-          value={userName}
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
           className="login__input"
           type="text"
           placeholder="Your login"
-          name="username"
+          name="email"
         />
         <input
           onChange={(e) => setPassword(e.target.value)}

@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext,";
+import { useAppSelector } from "../hooks";
 
 function Home() {
   const navigate = useNavigate();
-  const { isAuth } = React.useContext(AuthContext);
-  console.log(isAuth);
+  const { isAuth } = useAppSelector((state) => state.authSlice);
 
   React.useEffect(() => {
     if (!isAuth) return navigate("/auth/register");

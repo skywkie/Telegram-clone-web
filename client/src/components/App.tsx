@@ -1,13 +1,11 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { getRoutes } from "../routes";
 
 import "../styles/App.scss";
-
-import { AuthContext, AuthContextValues } from "../context/AuthContext,";
+import { useAppSelector } from "../hooks";
 
 function App() {
-  const { isAuth, setIsAuth } = React.useContext(AuthContext) as AuthContextValues;
+  const { isAuth } = useAppSelector((state) => state.authSlice);
 
   return (
     <div className="wrapper">
