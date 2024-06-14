@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <AuthProvider>
         <ThemeProvider>
-            <App/>
+          <App />
         </ThemeProvider>
       </AuthProvider>
     </Provider>

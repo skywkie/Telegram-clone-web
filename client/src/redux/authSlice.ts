@@ -29,15 +29,14 @@ export const fetchRegistrationWithEmail = createAsyncThunk(
     }
   }
 );
-
-const fetchLoginWithEmail = createAsyncThunk(
+export const fetchLoginWithEmail = createAsyncThunk(
   "fetchLoginWithEmail",
   async function (UserData: UserFetchData, { rejectWithValue, dispatch }) {
     try {
       await axios.post("/api/auth/login", UserData).then((response) => {
         const data: UserResponseData = response.data;
 
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data, ...UserData, userName: "" }));
 
         return data;
       });

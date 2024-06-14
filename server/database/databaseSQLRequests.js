@@ -34,8 +34,9 @@ export async function getPasswordByEmail_SQLRequest(email) {
 		`,
     [email]
   );
+  const passwordFromDatabaseObj = result[0].password;
   return {
     email,
-    password: result.password,
+    password: passwordFromDatabaseObj,
   };
 }
