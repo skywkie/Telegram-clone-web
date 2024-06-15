@@ -3,10 +3,13 @@ import Button from "../components/Buttons/Button";
 import "../styles/Login.scss";
 import { useAppDispatch } from "../hooks";
 import { fetchLoginWithEmail } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = React.useState("test123@gmail.com");
   const [password, setPassword] = React.useState("12345678");
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -19,7 +22,11 @@ function Login() {
   async function onClick() {
     const userData = { email, password };
 
-    await dispatch(fetchLoginWithEmail(userData)); // TODO
+    await dispatch(fetchLoginWithEmail(userData));
+
+    // TODO обработчик ошибок
+
+    navigate("/");
   }
 
   return (
