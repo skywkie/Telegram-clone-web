@@ -3,15 +3,21 @@ import React from "react";
 import Button from "../components/Buttons/Button";
 import "../styles/Register.scss";
 
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { fetchRegistrationWithEmail } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = React.useState("test123@gmail.com");
   const [password, setPassword] = React.useState("12345678");
   const [rep_password, setRep_Password] = React.useState("12345678");
 
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
+
+  const userSliceData = useAppSelector((state) => state.userSlice);
+  console.log(userSliceData);
 
   // TODO: Сделать обработчик ошибок для каждого поля с помощью хука useDebounce
 
@@ -23,6 +29,10 @@ function Register() {
     const userData = { email, password };
 
     await dispatch(fetchRegistrationWithEmail(userData));
+
+    // TODO обработчик ошибок
+
+    navigate("/");
   }
 
   return (
