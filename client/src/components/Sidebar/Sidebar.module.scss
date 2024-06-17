@@ -1,0 +1,14 @@
+.sidebar {
+  display: flex;
+  position: absolute;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background-color: rgb(38, 38, 38);
+  border-left: 0.1px solid black;
+  border-right: 1px solid black;
+  z-index: 5;
+  nav {
+    width: 100%;
+  }
+}

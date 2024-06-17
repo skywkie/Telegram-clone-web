@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { getRoutes } from "../routes";
 
 import "../styles/App.scss";
@@ -10,12 +9,7 @@ function App() {
   return (
     <div className="wrapper">
       <div className="inner">
-        <div className="inner__container">
-          <Link to="/auth/login">to Login</Link>
-          <br />
-          <Link to="/auth/register">to Register</Link>
-          {getRoutes(isAuth)}
-        </div>
+        <div className="inner__container">{getRoutes(isAuth)}</div>
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ export const fetchLoginWithEmail = createAsyncThunk(
 // TODO: setUserName
 
 const initialState = {
-  isAuth: false,
+  isAuth: true, // DEV MODE!!!
   errorAuth: "",
 };
 

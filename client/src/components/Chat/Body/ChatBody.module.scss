@@ -1,0 +1,48 @@
+@mixin message {
+  display: block;
+  color: #fff;
+  padding: 5px 10px;
+  display: block;
+  border-radius: 25px;
+}
+
+.chatbody {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  z-index: 5;
+}
+.chatbody__container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: start;
+  gap: 7px;
+  padding: 10px 50px;
+}
+.message__text {
+  @include message();
+}
+.message__container_notme {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+  gap: 8px;
+  width: 100%;
+  .message__text {
+    background-color: rgb(38, 38, 38);
+  }
+}
+.message__container_me {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+  .message__text {
+    background-color: #8774e1;
+  }
+}
