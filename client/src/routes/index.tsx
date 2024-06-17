@@ -15,8 +15,8 @@ export function getRoutes(isAuth: boolean) {
     return (
       // DEV MODE!!!
       <Routes>
-        <Route path="/auth/register" element={<Home />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     );
   }
