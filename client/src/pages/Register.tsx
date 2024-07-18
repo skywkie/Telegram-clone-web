@@ -1,13 +1,15 @@
 import React from "react";
-
-import Button from "../components/Buttons/Button";
-import "../styles/Register.scss";
-
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { fetchRegistrationWithEmail } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+import "@/assets/styles/Register.scss";
+
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { fetchRegistrationWithEmail } from "@/redux/authSlice";
+
+import Button from "@/components/UI/Button";
+import Field from "@/components/UI/Field";
+
+const Register = (): React.ReactNode => {
   const [email, setEmail] = React.useState("test123@gmail.com");
   const [password, setPassword] = React.useState("12345678");
   const [rep_password, setRep_Password] = React.useState("12345678");
@@ -15,7 +17,6 @@ function Register() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-
   const userSliceData = useAppSelector((state) => state.userSlice);
   console.log(userSliceData);
 
@@ -28,9 +29,11 @@ function Register() {
   async function onClick() {
     const userData = { email, password };
 
-    await dispatch(fetchRegistrationWithEmail(userData));
+    const result = await dispatch(fetchRegistrationWithEmail(userData));
 
-    // TODO обработчик ошибок
+    if (result.payload === "@fetchLoginWithEmail") {
+      console.log("ты черт картавый (регистрация)");
+    }
 
     navigate("/");
   }
@@ -39,7 +42,8 @@ function Register() {
     <div className="register">
       <h2 className="register__title">Sign up</h2>
       <form onSubmit={onSubmit} className="register__form">
-        <input
+        <Field
+          variant="auth"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           className="register__input"
@@ -47,7 +51,8 @@ function Register() {
           placeholder="Your login"
           name="email"
         />
-        <input
+        <Field
+          variant="auth"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           className="register__input"
@@ -55,7 +60,8 @@ function Register() {
           placeholder="Your password"
           name="password"
         />
-        <input
+        <Field
+          variant="auth"
           onChange={(e) => setRep_Password(e.target.value)}
           value={rep_password}
           className="register__input"
@@ -63,10 +69,12 @@ function Register() {
           placeholder="Your password"
           name="password"
         />
-        <Button type="auth" label="Register" onClick={onClick} />
+        <Button variant="auth" onClick={onClick}>
+          Register
+        </Button>
       </form>
     </div>
   );
-}
+};
 
 export default Register;

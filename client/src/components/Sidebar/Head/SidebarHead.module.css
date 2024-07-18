@@ -1,0 +1,12 @@
+.sidebarHead {
+  border-bottom: 1px solid black;
+}
+.sidebarHeadContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+	gap: 10px;
+  height: 70px;
+	padding: 10px;
+}

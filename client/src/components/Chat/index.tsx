@@ -1,12 +1,15 @@
-import ChatBody from "./Body/ChatBody";
 import styles from "./Chat.module.scss";
+
+import ChatBody from "./Body/ChatBody";
 import ChatHead from "./Head/ChatHead";
 
-export default function Chat() {
+const Chat = () => {
   return (
     <div className={styles.chat}>
       <ChatHead />
       <ChatBody />
     </div>
   );
-}
+};
+
+export default Chat;

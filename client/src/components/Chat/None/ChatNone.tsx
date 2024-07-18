@@ -1,5 +1,7 @@
-import styles from "./ChatNone.module.scss"
+import styles from "./ChatNone.module.scss";
 
-export default function ChatNone() {
+const ChatNone = () => {
   return <div className={styles.chatnone}></div>;
-}
+};
+
+export default ChatNone;

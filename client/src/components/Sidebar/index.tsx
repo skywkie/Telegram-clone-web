@@ -1,5 +1,7 @@
 import styles from "./Sidebar.module.scss";
-import SidebarItem from "./SidebarItem";
+
+import SidebarHead from "./Head/SidebarHead";
+import SidebarItem from "./Item/SidebarItem";
 
 const testUsersList = [
   { name: "skywkie", description: "*last message", id: 1512521214 },
@@ -11,9 +13,10 @@ const testUsersList = [
   { name: "zhenya", description: "*last message", id: 1512521214 },
 ];
 
-export default function Sidebar() {
+export default function Sidebar(): React.ReactNode {
   return (
     <div className={styles.sidebar}>
+      <SidebarHead />
       <nav>
         {testUsersList.map((user, i) => {
           return (

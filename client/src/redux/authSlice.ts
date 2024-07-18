@@ -1,6 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { setUser } from "./userSlice";
-import fetchAuthByEmail from "../utils/fetchAuthByEmail";
+
+import useAuthQuery from "@/hooks/useAuthQuery";
+
+import { LOGIN_URL_PATH, REGISTER_URL_PATH } from "@/api/constants/paths";
 
 interface UserFetchData {
   email: string;
@@ -11,15 +14,16 @@ export const fetchRegistrationWithEmail = createAsyncThunk(
   "fetchRegistration",
   async function (UserData: UserFetchData, { rejectWithValue, dispatch }) {
     try {
-      const response = await fetchAuthByEmail("/api/auth/register", UserData);
+      const { data, status } = await useAuthQuery(REGISTER_URL_PATH, UserData);
 
-      if (response.ok) {
-        const responseData = { userId: response.userId, token: response.token };
+      if (status === 200) {
+        const responseData = { userId: data.userId, token: data.token };
 
         dispatch(setUser({ ...responseData, email: UserData.email, userName: "" }));
 
         return responseData;
       }
+      return rejectWithValue("@fetchRegistrationWithEmail");
     } catch (err) {
       console.log("@fetchRegistrationWithEmail ERROR", err);
       return rejectWithValue("@fetchRegistrationWithEmail");
@@ -30,15 +34,16 @@ export const fetchLoginWithEmail = createAsyncThunk(
   "fetchLoginWithEmail",
   async function (UserData: UserFetchData, { rejectWithValue, dispatch }) {
     try {
-      const response = await fetchAuthByEmail("/api/auth/login", UserData);
+      const { data, status } = await useAuthQuery(LOGIN_URL_PATH, UserData);
 
-      if (response.ok) {
-        const responseData = { userId: response.userId, token: response.token };
+      if (status === 200) {
+        const responseData = { userId: data.userId, token: data.token };
 
         dispatch(setUser({ ...responseData, email: UserData.email, userName: "" }));
 
         return responseData;
       }
+      return rejectWithValue("@fetchRegistrationWithEmail");
     } catch (err) {
       console.log("@fetchRegistrationWithEmail ERROR", err);
       return rejectWithValue("@fetchRegistrationWithEmail");
@@ -49,7 +54,7 @@ export const fetchLoginWithEmail = createAsyncThunk(
 // TODO: setUserName
 
 const initialState = {
-  isAuth: true, // DEV MODE!!!
+  isAuth: false, // DEV MODE!!!
   errorAuth: "",
 };
 
@@ -69,21 +74,20 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchRegistrationWithEmail.fulfilled, (state, action) => {
-      console.log("@fetchRegistrationWithEmail fulfilled", action.payload);
+      console.log("@fetchRegistrationWithEmail fulfilled. Payload --> ", action.payload);
       state.isAuth = true;
     });
     builder.addCase(fetchRegistrationWithEmail.rejected, (state, action) => {
-      console.log("@fetchRegistrationWithEmail rejected", action.payload);
+      console.log("@fetchRegistrationWithEmail rejected. Payload --> ", action.payload);
       state.errorAuth = "Error Register";
       state.isAuth = false;
     });
     builder.addCase(fetchLoginWithEmail.fulfilled, (state, action) => {
-      console.log("@fetchLoginWithEmail fulfilled", action.payload);
-
+      console.log("@fetchLoginWithEmail fulfilled. Payload --> ", action.payload);
       state.isAuth = true;
     });
     builder.addCase(fetchLoginWithEmail.rejected, (state, action) => {
-      console.log("@fetchLoginWithEmail rejected", action.payload);
+      console.log("@fetchLoginWithEmail rejected. Payload --> ", action.payload);
       state.errorAuth = "Error Login";
       state.isAuth = false;
     });

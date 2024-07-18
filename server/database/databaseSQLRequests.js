@@ -18,7 +18,7 @@ export async function createNewUserWithEmail_SQLRequest(userId, email, password)
     `INSERT INTO users (userId, email, userName, password) VALUES (?, ?, "", ?);`,
     [userId, email, password]
   );
-  console.log(result);
+  // console.log(result);
   return {
     userId,
     email,
@@ -36,7 +36,7 @@ export async function getPasswordAndUserIdByEmail_SQLRequest(email) {
   );
   const passwordFromDatabaseObj = result[0].password;
   const userId = result[0].userId;
-  console.log(userId);
+  // console.log(userId);
   return {
     userId,
     password: passwordFromDatabaseObj,

@@ -1,4 +1,4 @@
-.register__btn {
+.auth {
   max-width: 360px;
   width: 100%;
   padding: 0px 20px;
@@ -10,7 +10,7 @@
   letter-spacing: 0.1rem;
   font-size: 1.2rem;
   transition: 0.3s;
-  &:hover {
-    background-color: rgba(135, 116, 225, 0.1);
-  }
+}
+.auth:hover {
+  background-color: rgba(135, 116, 225, 0.1);
 }

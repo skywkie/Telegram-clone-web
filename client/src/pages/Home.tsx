@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import "../styles/Home.scss";
 
-import Sidebar from "../components/Sidebar";
-import Chat from "../components/Chat/Chat";
-import ChatNone from "../components/Chat/None/ChatNone";
+import "@/assets/styles/Home.scss";
 
-import { useAppSelector } from "../hooks";
+import Particle from "@/helpers/canvasParticles";
+import { useAppSelector } from "@/hooks";
 
-import Particle from "../utils/canvasParticles.ts";
+import Sidebar from "@/components/Sidebar";
+import Chat from "@/components/Chat";
+import ChatNone from "@/components/Chat/None/ChatNone";
 
-function Home() {
+const Home = (): React.ReactNode => {
   const navigate = useNavigate();
   const { isAuth } = useAppSelector((state) => state.authSlice);
 
@@ -18,7 +18,7 @@ function Home() {
 
   React.useEffect(() => {
     if (!isAuth) return navigate("/auth/register");
-  }, []);
+  });
 
   React.useLayoutEffect(() => {
     const canvas = canvasRef.current as HTMLCanvasElement;
@@ -74,6 +74,6 @@ function Home() {
       </Routes>
     </div>
   );
-}
+};
 
 export default Home;

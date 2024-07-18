@@ -9,10 +9,8 @@ interface ThemeState {
   setTheme: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function useToggleTheme() {
-  const [theme, setTheme] = React.useState(
-    localStorage.getItem("data-theme") || userDefaultTheme
-  );
+const useToggleTheme = (): ThemeState => {
+  const [theme, setTheme] = React.useState(localStorage.getItem("data-theme") || userDefaultTheme);
 
   React.useEffect(() => {
     localStorage.setItem("data-theme", theme);
@@ -20,4 +18,6 @@ export default function useToggleTheme() {
   }, [theme]);
 
   return { theme, setTheme } as ThemeState;
-}
+};
+
+export default useToggleTheme;

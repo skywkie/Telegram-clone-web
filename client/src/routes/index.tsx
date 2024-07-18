@@ -1,23 +1,46 @@
 import { Route, Routes } from "react-router-dom";
 
-import { ErrorPage, Home, Register, Login } from "../pages";
+import RequireAuth from "./RequireAuth";
 
-export function getRoutes(isAuth: boolean) {
-  if (isAuth) {
-    // TODO: редирект на главную страницу и вывод ошибки при заходе на страницу, которой не существует
-    return (
-      <Routes>
-        <Route path="/*" element={<Home />} />
-        {/* <Route path="*" element={<ErrorPage />} /> */}
-      </Routes>
-    );
-  } else {
-    return (
-      // DEV MODE!!!
-      <Routes>
-        <Route path="/auth/register" element={<Register />} />
-        <Route path="*" element={<Login />} />
-      </Routes>
-    );
-  }
-}
+import { Home, Register, Login } from "@/pages";
+import { ROUTE_PATH_HOME, ROUTE_PATH_LOGIN, ROUTE_PATH_REGISTER } from "@/api/constants/routes";
+
+
+const ROUTES = [
+  {
+    path: ROUTE_PATH_HOME,
+    element: (
+      <RequireAuth redirectTo={ROUTE_PATH_LOGIN}>
+        <Home />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: ROUTE_PATH_REGISTER,
+    element: (
+      <RequireAuth redirectTo={ROUTE_PATH_HOME} reversed>
+        <Register />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: ROUTE_PATH_LOGIN,
+    element: (
+      <RequireAuth redirectTo={ROUTE_PATH_HOME} reversed>
+        <Login />
+      </RequireAuth>
+    ),
+  },
+];
+
+const RenderRoutes = () => {
+  return (
+    <Routes>
+      {ROUTES.map((route) => (
+        <Route {...route} key={route.path} />
+      ))}
+    </Routes>
+  );
+};
+
+export default RenderRoutes;

@@ -1,0 +1,64 @@
+.burgerMenu {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.1s ease-in-out;
+  background-color: transparent;
+  gap: 5px;
+  cursor: pointer;
+  height: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  position: relative;
+}
+.burgerMenu:hover {
+  background-color: rgba(153, 153, 153, 0.2);
+}
+.burgerMenuItem {
+  background-color: #aaaaaa;
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+}
+.modal {
+  position: absolute;
+  width: 250px;
+  background-color: rgba(33, 33, 33, 0.75);
+  backdrop-filter: blur(50px);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  z-index: 4;
+  top: 60px;
+}
+.modalContainer {
+	padding: 5px;
+}
+.modalList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  list-style: none;
+}
+.modalListItem {
+	display: flex;
+  align-items: center;
+	border-radius: 10px;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
+	padding: 15px 5px;
+	transition: 0.1s ease-in-out;
+}
+.modalListItem:hover {
+  background-color: #6e6e6e;
+}
+.modalListButton {
+  cursor: pointer;
+  color: #fff;
+  background-color: transparent;
+  font-size: 16px;
+	padding: 0 7px;
+}

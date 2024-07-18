@@ -1,18 +1,17 @@
-import { getRoutes } from "../routes";
+import "@/assets/styles/App.scss";
 
-import "../styles/App.scss";
-import { useAppSelector } from "../hooks";
+import RenderRoutes from "@/routes";
 
-function App() {
-  const { isAuth } = useAppSelector((state) => state.authSlice);
-
+const App = (): React.ReactNode => {
   return (
     <div className="wrapper">
       <div className="inner">
-        <div className="inner__container">{getRoutes(isAuth)}</div>
+        <div className="inner__container">
+          <RenderRoutes />
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;

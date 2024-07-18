@@ -1,5 +1,5 @@
 import React from "react";
-import { useToggleTheme } from "../hooks";
+import { useToggleTheme } from "@/hooks";
 
 interface ThemeContext {
   theme: "dark" | "light";
