@@ -1,10 +1,8 @@
-# Клон телеграма в вебе
+# Telegram clone
 
-Это приложение - демо моих скиллов
-Фронт - React
-Бэк - Node js Express.js
+This app - demo my fronend skills
 
-## Технологии
+## Stack
 
 <h2>Frontend</h2>
 
