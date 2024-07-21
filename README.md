@@ -2,8 +2,6 @@
 
 This app - demo my fronend skills
 
-## Stack
-
 <h2>Frontend</h2>
 
 - React
