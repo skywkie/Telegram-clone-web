@@ -33,7 +33,7 @@ class Particle {
     }
   }
   draw() {
-    this.ctx.fillStyle = `hsl(${this.deg}, 50%, 50%)`; //hsl-формат цвета
+    this.ctx.fillStyle = `hsl(${this.deg}, 50%, 50%)`;
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     this.ctx.strokeStyle = this.colorLine;

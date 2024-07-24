@@ -3,8 +3,11 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "./RequireAuth";
 
 import { Home, Register, Login } from "@/pages";
-import { ROUTE_PATH_HOME, ROUTE_PATH_LOGIN, ROUTE_PATH_REGISTER } from "@/api/constants/routes";
-
+import {
+  ROUTE_PATH_HOME,
+  ROUTE_PATH_LOGIN,
+  ROUTE_PATH_REGISTER,
+} from "@/api/constants/routes";
 
 const ROUTES = [
   {

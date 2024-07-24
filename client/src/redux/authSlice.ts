@@ -28,7 +28,7 @@ export const fetchRegistrationWithEmail = createAsyncThunk(
       console.log("@fetchRegistrationWithEmail ERROR", err);
       return rejectWithValue("@fetchRegistrationWithEmail");
     }
-  }
+  },
 );
 export const fetchLoginWithEmail = createAsyncThunk(
   "fetchLoginWithEmail",
@@ -48,7 +48,7 @@ export const fetchLoginWithEmail = createAsyncThunk(
       console.log("@fetchRegistrationWithEmail ERROR", err);
       return rejectWithValue("@fetchRegistrationWithEmail");
     }
-  }
+  },
 );
 
 // TODO: setUserName
