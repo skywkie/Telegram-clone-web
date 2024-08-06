@@ -3,25 +3,27 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
-  font-family: "Reddit Sans", sans-serif;
   outline: none;
   border: none;
-}
-html[data-theme="dark"] {
-  --wrapper-background-color: #181818;
-  --inner-background-color: #fff;
-  --inner__container-background-color: #fff;
-  --main-text-color: #fff;
-
-  $wrapper-background-color: var(--wrapper-background-color);
+  box-sizing: border-box;
 }
 
-html[data-theme="light"] {
-  --wrapper-background-color: rgb(33, 33, 33);
-  --inner-background-color: #fff;
-  --inner__container-background-color: #fff;
-  --main-text-color: #000;
+body {
+  font-family: "Reddit Sans", sans-serif;
+}
 
-  $wrapper-background-color: var(--wrapper-background-color);
+:root {
+  --primary-color: #212121;
+  --primary-color-dark: #181818;
+
+  --secondary-color: #8774e1;
+
+  --primary-text-color: #ffffff;
+}
+
+.light {
+  --primary-color: #212121;
+  --primary-color-dark: #181818;
+
+  --primary-text-color: #ffffff;
 }

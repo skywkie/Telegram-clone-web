@@ -9,12 +9,14 @@ interface ThemeState {
   setTheme: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const useToggleTheme = (): ThemeState => {
-  const [theme, setTheme] = React.useState(localStorage.getItem("data-theme") || userDefaultTheme);
+const useToggleTheme = () => {
+  const [theme, setTheme] = React.useState(
+    localStorage.getItem("data-theme") || userDefaultTheme,
+  );
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     localStorage.setItem("data-theme", theme);
-    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.className = theme;
   }, [theme]);
 
   return { theme, setTheme } as ThemeState;

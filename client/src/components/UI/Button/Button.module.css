@@ -4,7 +4,7 @@
   padding: 0px 20px;
   height: 55px;
   background-color: transparent;
-  color: rgb(135, 116, 225);
+  color: var(--secondary-color);
   border-radius: 15px;
   cursor: pointer;
   letter-spacing: 0.1rem;

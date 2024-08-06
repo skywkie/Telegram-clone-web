@@ -9,7 +9,7 @@ export const getRetry = (retry: number | boolean) => {
 };
 
 export const useEvent = <Params extends unknown[], Return>(
-  callback: (...args: Params) => Return
+  callback: (...args: Params) => Return,
 ): ((...args: Params) => Return) => {
   const callbackRef = React.useRef<typeof callback>(callback);
 
@@ -46,7 +46,7 @@ export interface UseWebSocketReturn {
 
 export const useWebSocket = (
   url: UseWebSocketUrl,
-  options?: UseWebSocketOptions
+  options?: UseWebSocketOptions,
 ): UseWebSocketReturn => {
   const webSocketRef = React.useRef<WebSocket>();
   const retryCountRef = React.useRef(options?.retry ? getRetry(options.retry) : 0);
@@ -65,7 +65,7 @@ export const useWebSocket = (
   const init = useEvent(() => {
     webSocketRef.current = new WebSocket(
       typeof url === "function" ? url() : url,
-      options?.protocols
+      options?.protocols,
     );
     setStatus("connecting");
 
