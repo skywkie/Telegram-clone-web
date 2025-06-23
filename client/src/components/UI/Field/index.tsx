@@ -3,13 +3,13 @@ import clsx from "clsx";
 
 import styles from "./Field.module.css";
 
-type VariantInput = "auth" | "search" | "message";
+type VariantField = "auth" | "search" | "message";
 
-interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
-  variant: VariantInput;
+interface FieldProps extends React.ComponentPropsWithoutRef<"input"> {
+  variant: VariantField;
 }
 
-const Input = ({ variant, ...rest }: InputProps) => (
+const Field = ({ variant, ...rest }: FieldProps) => (
   <input
     {...rest}
     className={clsx({
@@ -18,4 +18,4 @@ const Input = ({ variant, ...rest }: InputProps) => (
   />
 );
 
-export default Input;
+export default Field;

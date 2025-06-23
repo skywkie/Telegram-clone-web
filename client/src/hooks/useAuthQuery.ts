@@ -11,7 +11,7 @@ interface SuccessAuthResponse {
 }
 interface BadAuthResponse {}
 
-const useAxiosQuery = async (
+const useAuthQuery = async (
   shortUrlPath: string,
   requestData: AuthRequestData
 ): Promise<AxiosResponse<SuccessAuthResponse, BadAuthResponse>> => {
@@ -29,4 +29,4 @@ const useAxiosQuery = async (
   }
 };
 
-export default useAxiosQuery;
+export default useAuthQuery;
