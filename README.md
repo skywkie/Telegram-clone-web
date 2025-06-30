@@ -9,6 +9,7 @@ This app - demo my fronend skills
 - React router dom
 - sass
 - redux toolkit
+- socket.io-client
 
 <h2>Backend</h2>
 
